@@ -1,0 +1,42 @@
+import { describeTablePlugin } from './table-plugin-suite.ts'
+import { Config } from '../src/config.ts'
+import { parseMaterial, runCheck, SPEC } from '../src/model.ts'
+import { buildView } from '../src/view.ts'
+import { inject, name, resolvePackageFile, TOOL_NAME } from '../src/index.ts'
+
+describeTablePlugin({
+  name,
+  inject,
+  TOOL_NAME,
+  resolvePackageFile,
+  Config,
+  rulesFile: 'rules/lawcite-adapter.yaml',
+  parseMaterial,
+  runCheck,
+  buildView,
+  columnNames: SPEC.columns,
+  samples: {
+    good: {
+          "documentTitle": "某某买卖合同纠纷起诉状",
+          "documentType": "民事起诉状",
+          "author": "王律师",
+          "draftedAt": "2026-05-12",
+          "rows": [
+                {
+                      "序号": "1",
+                      "法律法规名称": "《中华人民共和国民法典》",
+                      "条号": "第五百七十七条",
+                      "款号": "",
+                      "项号": "",
+                      "引用原文": "当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。",
+                      "引用位置": "第 2 部分 诉讼请求的事实与理由（第三段）",
+                      "论证作用": "作为被告违约责任请求权的法律依据",
+                      "效力状态": "现行有效",
+                      "版本说明": "2020 年 5 月 28 日通过，2021 年 1 月 1 日施行",
+                      "引用格式": "脚注①"
+                }
+          ]
+    },
+    unknownColumn: { rows: [{ 备注: '甲' }] },
+  },
+})

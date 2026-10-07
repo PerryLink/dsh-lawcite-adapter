@@ -1,0 +1,276 @@
+# 法条引用与文书要素核对 规则库
+#
+# 规则数据与代码分离：替换本文件即可切换规则集版本，无需改动 TypeScript。
+#
+# 条款引用纪律（由 shared/ruleset.ts 强制校验）：
+#   - 每条规则必须写全 document / number / clause / excerpt / kind / source，
+#     且 excerpt 必须是逐字摘录，不得改写。
+#   - kind: direct                       条款直接规定了所检查的要求
+#   - kind: derived-from-principle       条款未直接规定，仅能由原则性条款推论（severity 最多 warn）
+#   - kind: institutional-configuration 阈值出自本机构配置（severity 最多 info）
+#
+# ⚠️⚠️ 本规则库最要紧的说明：**本插件不查法律法规数据库。**
+#   本插件核对的是"法条引用清单"的**可核验性与文书要素**：
+#     法律名称与条号是否填写、引用原文是否抄录、引用位置与论证作用是否写明、
+#     效力状态是否在册、条号形式是否规范、
+#     是否注明版本、引用编号是否重复、是否残留模板占位符。
+#   其规范载体是**《中华人民共和国立法法》**关于法律效力位阶的规定、
+#   **《党政机关公文格式》（GB/T 9704—2012）**与各单位的法律文书审查办法。
+#   **核查未取得这些文件的逐字条文**，故每条 excerpt 如实写明，kind 降为 derived-from-principle（封顶 warn）。
+#
+# ⚠️⚠️ 另一条**必须保留**的边界：**本插件绝不核验法条是否真实存在、
+#   是否现行有效、是否已被修订或废止、是否适用于本案**。
+#   那需要查询国家法律法规数据库与具体案情，是法律专业人员的判断。
+#   → 因此本插件**发现不了最要紧的错误：引了一条不存在或已废止的法条**——
+#     它只核对"引用是否留下了可核验的要素"，**这是它最重要的能力边界**。
+#   → **效力状态清单（statuses）与文书类型清单（types）都出厂为空。**
+#   → 条号形式（articlePattern）出厂为常见的中文条号写法，可按本机构口径调整。
+
+plugin: dsh-lawcite-adapter
+version: "2026.1"
+
+rules:
+  - id: LC-001
+    title: 每处引用都应写明法律名称与条号
+    severity: info
+    basis:
+      document: 本机构法律文书审查口径（本机构配置）—— 原挂《中华人民共和国立法法》，已核实其第六十五条为立法技术条款
+      number: 无统一标准（本条依据为本机构配置的引用管理口径）—— ⚠️ 《立法法》2023 年第二次修正文本已核实，本条不引用该法
+      clause: ⚠️ 本条依据为本机构法律文书审查口径中关于引用管理的要求（本机构配置）—— 《立法法》（2023 年第二次修正）已取得全文核实，其**第六十五条**规定的是**法律自身的体例与序号编排**（「法律根据内容需要，可以分编、章、节、条、款、项、目」），**并不规范公文如何引用法律**，故不把本条挂在该法名下
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://www.gov.cn/
+    params:
+        check:
+          kind: presenceAny
+          fields: ["lawName","articleNo"]
+          fix: 补填法律名称与条号；本条只核对是否写明，不核验法条是否存在
+    note: >-
+      ⚠️ **`kind` 已于 2026-10-07 由 `derived-from-principle` 更正为 `institutional-configuration`**，
+      **`severity` 由 `warn` 降为 `info`**。
+      判据：**《立法法》规范的是"法律是怎么制定与编排的"**，
+      **其第六十五条是立法技术条款（第六十五条第二款并授权常委会工作机构编制立法技术规范）**；
+      **"公文引用法律应写明名称与条号"这一要求，在该法中找不到依据** ——
+      它出自**本机构法律文书审查口径**。
+      ⚠️ **至此本插件 8 条规则的依据类别已统一**（全部为本机构配置）。
+      引用的**最低可核验信息**是"哪部法律的哪一条"：缺其一，读者就无法回到原文。
+      本次未取得明文条号，故封顶 warn。
+      ⚠️ **本条只核对"是否写明"**，**不核验该法律是否存在、该条号是否存在**——
+      那需要查询国家法律法规数据库，本插件不做，也不内置任何法规文本。
+
+  - id: LC-002
+    title: 条号应写成规范的中文形式
+    severity: info
+    basis:
+      document: 本机构法律文书审查口径（本机构配置）—— 原挂《党政机关公文格式》GB/T 9704—2012，已核实为版式标准
+      number: GB/T 9704—2012（本次未取得条文）
+      clause: ⚠️ 本条依据为本机构法律文书审查口径中关于引用管理的要求（本机构配置）—— **GB/T 9704—2012《党政机关公文格式》已逐章核实为版式标准（纸张、排版与印制装订、格式要素编排规则与式样），全文不含引用管理**，故不把本条挂在该标准名下
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=F3CC9BEF482524C895FDA7A08BB4A70E
+    params:
+        check:
+          kind: pattern
+          field: articleNo
+          pattern: ^第[〇零一二三四五六七八九十百千0-9]+条(之[一二三四五六七八九十]+)?$
+          fix: 条号应写成"第X条"的形式（汉字或阿拉伯数字均可，允许"第X条之一"）
+    note: >-
+      ⚠️ **`kind` 已于 2026-10-07 由 `derived-from-principle` 更正为 `institutional-configuration`**，
+      **`severity` 由 `warn` 降为 `info`**。判据见 rules/evidence/clause-verification-basis-mismatch.md：
+      **GB/T 9704—2012 是版式标准，不含引用管理**，本条要求出自**本机构法律文书审查口径**。
+      ⚠️ **降级不是弱化而是如实** —— 把它留在 `warn` 会赋予该标准并不承载的分量。
+      条号写法不规范（如"第 3.2 条""第12款条""第 12 条 3 款"混写），
+      会让引用无法与法条原文对应。本次未取得明文条号，故封顶 warn。
+      ⚠️ 本条**只核对条号本身的形式**：款、项通常单列（本模型另有 paragraphNo 与 itemNo），
+      因此"第 12 条第 3 款"应把"第 12 条"填在条号栏。若本机构习惯合并书写，请调整 pattern。
+      本条**不核对条号是否存在、是否现行**。
+      ⚠️ **依据匹配性说明（2026-10-07 补记，见 rules/evidence/clause-verification-basis-mismatch.md）**：
+      本条所挂的 **GB/T 9704—2012《党政机关公文格式》是一部版式与排版标准** ——
+      其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
+      **通篇不含任何关于"如何引用法律条文"的规定**。
+      ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
+      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
+
+  - id: LC-003
+    title: 直接引用应抄录原文
+    severity: info
+    basis:
+      document: 本机构法律文书审查口径（本机构配置）—— 原挂《党政机关公文格式》GB/T 9704—2012，已核实为版式标准
+      number: GB/T 9704—2012（本次未取得条文）
+      clause: ⚠️ 本条依据为本机构法律文书审查口径中关于引用管理的要求（本机构配置）—— **GB/T 9704—2012《党政机关公文格式》已逐章核实为版式标准（纸张、排版与印制装订、格式要素编排规则与式样），全文不含引用管理**，故不把本条挂在该标准名下
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=F3CC9BEF482524C895FDA7A08BB4A70E
+    params:
+        check:
+          kind: presence
+          field: quotedText
+          fix: 抄录引用原文；本条只核对是否抄录，不核对抄录是否准确
+    note: >-
+      ⚠️ **`kind` 已于 2026-10-07 由 `derived-from-principle` 更正为 `institutional-configuration`**，
+      **`severity` 由 `warn` 降为 `info`**。判据见 rules/evidence/clause-verification-basis-mismatch.md：
+      **GB/T 9704—2012 是版式标准，不含引用管理**，本条要求出自**本机构法律文书审查口径**。
+      ⚠️ **降级不是弱化而是如实** —— 把它留在 `warn` 会赋予该标准并不承载的分量。
+      **"原文"栏是把引用变成可核验引用的关键**：只有转述没有原文，
+      读者无法判断转述是否忠实。本次未取得明文条号，故封顶 warn。
+      ⚠️ 本条只核对原文栏是否**填写**，**不核对所抄原文是否与法条一致**——
+      比对法条需要法规文本，本插件不含（这是它最重要的能力边界，也是与"法条核验工具"的分界）。
+      ⚠️ **依据匹配性说明（2026-10-07 补记，见 rules/evidence/clause-verification-basis-mismatch.md）**：
+      本条所挂的 **GB/T 9704—2012《党政机关公文格式》是一部版式与排版标准** ——
+      其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
+      **通篇不含任何关于"如何引用法律条文"的规定**。
+      ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
+      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
+
+  - id: LC-004
+    title: 效力状态应使用本机构口径的取值
+    severity: info
+    basis:
+      document: 本机构法律文书审查办法（本机构配置）
+      number: 无统一标准（本条依据为本机构配置的效力口径）
+      clause: 关于法律效力状态的条款（本次未取得条号）
+      excerpt: 本条依据为本机构配置的口径，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://www.gov.cn/
+    params:
+        check:
+          kind: enum
+          field: effectiveStatus
+          values: []
+    note: >-
+      values 出厂为空，表示**未配置**，本条进 skipped。
+      依据说明：效力状态的口径（例如「现行有效」「已修订」「已废止」「尚未生效」）
+      随**本机构法律审查口径**变化，本插件**不硬编码任何取值清单**，
+      也**不内置任何法规的效力表**——那需要持续跟踪立法动态，是另一件事。
+      ⚠️ 本条只核对所填值是否在册，**不核验所填状态是否与事实相符**。
+
+  - id: LC-005
+    title: 每处引用都应写明引用位置与论证作用
+    severity: info
+    basis:
+      document: 本机构法律文书审查口径（本机构配置）—— 原挂《党政机关公文格式》GB/T 9704—2012，已核实为版式标准
+      number: GB/T 9704—2012（本次未取得条文）
+      clause: ⚠️ 本条依据为本机构法律文书审查口径中关于引用管理的要求（本机构配置）—— **GB/T 9704—2012《党政机关公文格式》已逐章核实为版式标准（纸张、排版与印制装订、格式要素编排规则与式样），全文不含引用管理**，故不把本条挂在该标准名下
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=F3CC9BEF482524C895FDA7A08BB4A70E
+    params:
+        check:
+          kind: presenceAny
+          fields: ["usage","purpose"]
+          fix: 补填引用位置与论证作用；本条只核对是否写明
+    note: >-
+      ⚠️ **`kind` 已于 2026-10-07 由 `derived-from-principle` 更正为 `institutional-configuration`**，
+      **`severity` 由 `warn` 降为 `info`**。判据见 rules/evidence/clause-verification-basis-mismatch.md：
+      **GB/T 9704—2012 是版式标准，不含引用管理**，本条要求出自**本机构法律文书审查口径**。
+      ⚠️ **降级不是弱化而是如实** —— 把它留在 `warn` 会赋予该标准并不承载的分量。
+      只列法条而不说"用在哪、论证什么"，读者无法判断该引用是否切题 ——
+      **而"引了不相干的法条"是法律文书最常见的论证缺陷**。本次未取得明文条号，故封顶 warn。
+      ⚠️ 本条只核对"是否写明了位置与作用"，**不判断该引用是否真的支持该论点**——
+      那是法律论证的实质判断，本插件不做。
+      ⚠️ **依据匹配性说明（2026-10-07 补记，见 rules/evidence/clause-verification-basis-mismatch.md）**：
+      本条所挂的 **GB/T 9704—2012《党政机关公文格式》是一部版式与排版标准** ——
+      其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
+      **通篇不含任何关于"如何引用法律条文"的规定**。
+      ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
+      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
+
+  - id: LC-006
+    title: 文书应声明标题与文书类型
+    severity: info
+    basis:
+      document: 本机构法律文书审查口径（本机构配置）—— 原挂《党政机关公文格式》GB/T 9704—2012，已核实为版式标准
+      number: GB/T 9704—2012（本次未取得条文）
+      clause: ⚠️ 本条依据为本机构法律文书审查口径中关于引用管理的要求（本机构配置）—— **GB/T 9704—2012《党政机关公文格式》已逐章核实为版式标准（纸张、排版与印制装订、格式要素编排规则与式样），全文不含引用管理**，故不把本条挂在该标准名下
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=F3CC9BEF482524C895FDA7A08BB4A70E
+    params:
+        check:
+          kind: headerPresence
+          fields: ["documentTitle","documentType"]
+    note: >-
+      ⚠️ **`kind` 已于 2026-10-07 由 `derived-from-principle` 更正为 `institutional-configuration`**，
+      **`severity` 由 `warn` 降为 `info`**。判据见 rules/evidence/clause-verification-basis-mismatch.md：
+      **GB/T 9704—2012 是版式标准，不含引用管理**，本条要求出自**本机构法律文书审查口径**。
+      ⚠️ **降级不是弱化而是如实** —— 把它留在 `warn` 会赋予该标准并不承载的分量。
+      文书若不写明标题与类型（起诉状、答辩状、法律意见书、代理词……），
+      读者无法判断该按哪一套格式与要素要求检查。本次未取得明文条号，故封顶 warn。
+      配置项 documentTitle 对应文书标题，documentType 对应文书类型。
+      若本机构表式还在表头记录撰写人与成文日期，把 author、draftedAt 加进 fields 即可。
+      ⚠️ **依据匹配性说明（2026-10-07 补记，见 rules/evidence/clause-verification-basis-mismatch.md）**：
+      本条所挂的 **GB/T 9704—2012《党政机关公文格式》是一部版式与排版标准** ——
+      其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
+      **通篇不含任何关于"如何引用法律条文"的规定**。
+      ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
+      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
+
+  - id: LC-007
+    title: 引用编号不应在清单内重复
+    severity: info
+    basis:
+      document: 本机构法律文书审查口径（本机构配置）—— 原挂《党政机关公文格式》GB/T 9704—2012，已核实为版式标准
+      number: GB/T 9704—2012（本次未取得条文）
+      clause: ⚠️ 本条依据为本机构法律文书审查口径中关于引用管理的要求（本机构配置）—— **GB/T 9704—2012《党政机关公文格式》已逐章核实为版式标准（纸张、排版与印制装订、格式要素编排规则与式样），全文不含引用管理**，故不把本条挂在该标准名下
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=F3CC9BEF482524C895FDA7A08BB4A70E
+    params:
+        check:
+          kind: unique
+          field: citationNo
+    note: >-
+      ⚠️ **`kind` 已于 2026-10-07 由 `derived-from-principle` 更正为 `institutional-configuration`**，
+      **`severity` 由 `warn` 降为 `info`**。判据见 rules/evidence/clause-verification-basis-mismatch.md：
+      **GB/T 9704—2012 是版式标准，不含引用管理**，本条要求出自**本机构法律文书审查口径**。
+      ⚠️ **降级不是弱化而是如实** —— 把它留在 `warn` 会赋予该标准并不承载的分量。
+      引用编号唯一是"每处引用只被登记一次"的**前提条件**，
+      也是正文脚注与清单对应的基础。本次未取得明文条号，故封顶 warn。
+      注意：同一法条在不同章节被多次引用是正常的，此时应使用不同的引用编号
+      （**重复使用同一编号会让脚注无法准确定位**）。
+      ⚠️ **依据匹配性说明（2026-10-07 补记，见 rules/evidence/clause-verification-basis-mismatch.md）**：
+      本条所挂的 **GB/T 9704—2012《党政机关公文格式》是一部版式与排版标准** ——
+      其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
+      **通篇不含任何关于"如何引用法律条文"的规定**。
+      ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
+      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
+
+  - id: LC-008
+    title: 引用原文栏不应残留未替换的占位符
+    severity: info
+    basis:
+      document: 本机构法律文书审查口径（本机构配置）—— 原挂《党政机关公文格式》GB/T 9704—2012，已核实为版式标准
+      number: GB/T 9704—2012（本次未取得条文）
+      clause: ⚠️ 本条依据为本机构法律文书审查口径中关于引用管理的要求（本机构配置）—— **GB/T 9704—2012《党政机关公文格式》已逐章核实为版式标准（纸张、排版与印制装订、格式要素编排规则与式样），全文不含引用管理**，故不把本条挂在该标准名下
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=F3CC9BEF482524C895FDA7A08BB4A70E
+    params:
+        check:
+          kind: containsAny
+          field: quotedText
+          terms: ["【","】","{{","}}","XXX","xxx","待填","待补充","TBD","todo","示例"]
+          fix: 引用原文应抄录法条实际措辞；残留占位符说明清单是照模板抄的
+    note: >-
+      ⚠️ **`kind` 已于 2026-10-07 由 `derived-from-principle` 更正为 `institutional-configuration`**，
+      **`severity` 由 `warn` 降为 `info`**。判据见 rules/evidence/clause-verification-basis-mismatch.md：
+      **GB/T 9704—2012 是版式标准，不含引用管理**，本条要求出自**本机构法律文书审查口径**。
+      ⚠️ **降级不是弱化而是如实** —— 把它留在 `warn` 会赋予该标准并不承载的分量。
+      引用清单最危险的失效方式是**原文栏写着占位符，却被当成已核对**——
+      因为那意味着文书里的"引用"可能只是转述或凭空而来。
+      本次未取得明文条号，故封顶 warn。
+      ⚠️ 出厂 terms **不含**「略」这个字：法条引用中"……（略）"是常见且正当的省略写法。
+      ⚠️ **依据匹配性说明（2026-10-07 补记，见 rules/evidence/clause-verification-basis-mismatch.md）**：
+      本条所挂的 **GB/T 9704—2012《党政机关公文格式》是一部版式与排版标准** ——
+      其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
+      **通篇不含任何关于"如何引用法律条文"的规定**。
+      ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
+      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
+
+disabled: []
