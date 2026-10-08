@@ -1,4 +1,25 @@
-# dsh-lawcite-adapter
+# dsh-lawcite-adapter — Verificación de citas de artículos legales y de los elementos del documento jurídico
+
+`dsh-lawcite-adapter` lee un inventario de citas de artículos legales —la cabecera del documento más una fila por cita— y comprueba la verificabilidad y los elementos documentales de ese propio inventario: que cada cita indique la ley y el número de artículo, que el número de artículo siga la forma china, que se haya transcrito el texto citado, que el estado de vigencia provenga de su propio vocabulario, que la cita indique dónde se usa y qué argumenta, que la cabecera del documento declare su título y su tipo, que los números de cita no se repitan y que no sobreviva ningún marcador de plantilla en la columna del texto citado. No verifica que una ley exista, que esté vigente, que no haya sido modificada o derogada, ni que se aplique al caso.
+
+## Qué responde
+
+| Usted pregunta | Qué responde |
+|---|---|
+| Una fila lleva el número de artículo pero deja vacío el nombre de la ley. ¿Se informa? | Sí. `LC-001` exige el nombre de la ley y el número de artículo (`lawName`, `articleNo`) en cada fila e informa de la fila a la que le falta uno de los dos. Comprueba que estén escritos, no que la ley o el artículo existan: no incluye ninguna base de datos normativa ni la consulta. |
+| El número de artículo figura como `第 577 条` o como `第12条第3款`. ¿Pasa la comprobación? | `LC-002` compara `articleNo` con `^第[〇零一二三四五六七八九十百千0-9]+条(之[一二三四五六七八九十]+)?$`, de modo que tanto la forma con espacios `第 577 条` como la mixta `第12条第3款` se informan. Solo comprueba la forma del número, nada sobre si el artículo existe; el número de párrafo o de inciso va en su propia columna, así que `第12条` se escribe en `articleNo`. El `pattern` se puede ajustar a su estilo interno. |
+| En una fila la columna del texto citado está vacía y en otra todavía dice `【待补充】`. ¿Se detectan ambos casos? | Sí, con dos reglas. `LC-003` exige que `quotedText` esté transcrito en cada fila; `LC-008` informa de la fila cuyo `quotedText` aún contiene un término de plantilla (`【`, `】`, `{{`, `}}`, `XXX`, `xxx`, `待填`, `待补充`, `TBD`, `todo`, `示例`). Ninguna compara el texto con la ley: `LC-003` comprueba que la cita esté presente, `LC-008` solo que no quede marcador alguno. 「略」 no figura entre los términos, así que `……（略）` es una abreviación normal y pasa. |
+| El informe muestra `LC-004` como `skipped` en lugar de aprobado. ¿Por qué? | Porque la lista `values` de `LC-004` viene vacía, es decir, el vocabulario del estado de vigencia no está configurado, y la regla se informa en `skipped` en vez de pasar en silencio. Al llenar `values` con su propio vocabulario (por ejemplo `现行有效`, `已修订`, `已废止`), `LC-004` comprueba que `effectiveStatus` figure en esa lista. Comprueba la pertenencia a su lista, no que el estado registrado corresponda a los hechos. |
+| Las filas indican la ley y transcriben el texto, pero no dicen dónde se usa la cita ni qué argumenta, y la cabecera no da el tipo de documento. ¿Se informa? | Sí. `LC-005` exige `usage` y `purpose` en cada fila de cita e informa de la fila que deja ambos vacíos; no juzga si la cita sostiene realmente ese argumento. `LC-006` exige que la cabecera declare `documentTitle` y `documentType`, y no juzga si el tipo se eligió correctamente. |
+| El mismo artículo se cita en dos secciones y ambas filas llevan el número de cita 3. ¿Es un hallazgo? | Sí. `LC-007` informa de un `citationNo` repetido dentro del inventario, porque un número repetido impide que las notas localicen cada cita. Citar la misma disposición en varias secciones es normal: dé a cada cita su propio número. La regla no juzga si es adecuado citar dos veces la misma disposición. |
+
+## Normas que sigue
+
+| Documento | Número | Reglas que lo citan |
+|---|---|---|
+| 本机构法律文书审查口径（本机构配置）—— 原挂《中华人民共和国立法法》，已核实其第六十五条为立法技术条款 | 无统一标准（本条依据为本机构配置的引用管理口径）—— ⚠️ 《立法法》2023 年第二次修正文本已核实，本条不引用该法 | LC-001 |
+| 本机构法律文书审查口径（本机构配置）—— 原挂《党政机关公文格式》GB/T 9704—2012，已核实为版式标准 | GB/T 9704—2012（本次未取得条文） | LC-002, LC-003, LC-005, LC-006, LC-007, LC-008 |
+| 本机构法律文书审查办法（本机构配置） | 无统一标准（本条依据为本机构配置的效力口径） | LC-004 |
 
 **Boundary:** this plugin checks a **法条引用清单** for verifiability and document elements — that each citation
 names its law and article, that the article number follows the Chinese form, that a direct quotation is
