@@ -1,6 +1,6 @@
 {
   "name": "dsh-lawcite-adapter",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "法条引用与文书要素核对（按名称、条号、原文与效力状态核对引用可核验性，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
