@@ -82,15 +82,14 @@ citation — applies a versioned rule pack, and returns a report.
 
 | Rule | Check | Severity | Basis kind |
 |---|---|---|---|
-| `LC-001` | the law name and article number are stated | warn | principle |
-| `LC-002` | the article number follows the Chinese form | warn | principle |
-| `LC-003` | a direct quotation is transcribed | warn | principle |
+| `LC-001` | the law name and article number are stated | info | local |
+| `LC-002` | the article number follows the Chinese form | info | local |
+| `LC-003` | a direct quotation is transcribed | info | local |
 | `LC-004` | the power status comes from your vocabulary (off by default) | info | local |
-| `LC-005` | the citation states its location and purpose | warn | principle |
-| `LC-006` | the document names its title and type | warn | principle |
-| `LC-007` | citation numbers are unique | warn | principle |
-| `LC-008` | the quotation column holds no unreplaced placeholder | warn | principle |
-
+| `LC-005` | the citation states its location and purpose | info | local |
+| `LC-006` | the document names its title and type | info | local |
+| `LC-007` | citation numbers are unique | info | local |
+| `LC-008` | the quotation column holds no unreplaced placeholder | info | local |
 ## Install
 
 ```sh
