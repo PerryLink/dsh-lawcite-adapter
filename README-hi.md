@@ -61,8 +61,7 @@ or repealed, or that it applies to the case.
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./*.tgz
+dsh plugin --profile <name> add dsh-lawcite-adapter
 dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
 ```
 
