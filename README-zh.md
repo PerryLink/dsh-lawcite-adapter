@@ -4,6 +4,13 @@
 
 `dsh-lawcite-adapter` 读取一份法条引用清单——表头加每处引用一行——核对这份清单自身的可核验性与文书要素：每处引用是否写明法律名称与条号、条号是否写成规范的中文形式、是否抄录了引用原文、效力状态是否取自本机构配置的取值、是否写明引用位置与论证作用、文书表头是否声明标题与文书类型、引用编号是否重复、引用原文栏是否残留未替换的占位符。它不核验法条是否真实存在、是否现行有效、是否已被修订或废止、是否适用于本案。
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-lawcite-adapter
+dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
+```
+
 ## 实际输出长什么样
 
 ![Terminal demo of dsh-lawcite-adapter: real output over its LC-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-lawcite-adapter/main/docs/assets/dsh-lawcite-adapter-hero.png)
@@ -88,13 +95,6 @@ or repealed, or that it applies to the case.
 ## What it does
 
 规则表、字段说明与行为细节见 [README.md](README.md#what-it-does)（英文主版本）。本插件只列出材料与所引条款之间的字面差异，并对无法执行的检查在 `skipped` 中逐项说明。
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-lawcite-adapter
-dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
-```
 
 ## Configuration
 

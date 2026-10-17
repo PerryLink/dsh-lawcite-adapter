@@ -4,6 +4,13 @@
 
 `dsh-lawcite-adapter` lee un inventario de citas de artículos legales —la cabecera del documento más una fila por cita— y comprueba la verificabilidad y los elementos documentales de ese propio inventario: que cada cita indique la ley y el número de artículo, que el número de artículo siga la forma china, que se haya transcrito el texto citado, que el estado de vigencia provenga de su propio vocabulario, que la cita indique dónde se usa y qué argumenta, que la cabecera del documento declare su título y su tipo, que los números de cita no se repitan y que no sobreviva ningún marcador de plantilla en la columna del texto citado. No verifica que una ley exista, que esté vigente, que no haya sido modificada o derogada, ni que se aplique al caso.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-lawcite-adapter
+dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
+```
+
 ## Cómo se ve la salida
 
 ![Terminal demo of dsh-lawcite-adapter: real output over its LC-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-lawcite-adapter/main/docs/assets/dsh-lawcite-adapter-hero.png)
@@ -88,13 +95,6 @@ or repealed, or that it applies to the case.
 ## What it does
 
 La tabla de reglas, los campos y el comportamiento detallado están en [README.md](README.md#what-it-does) (versión principal en inglés). El plugin sólo enumera divergencias literales frente a las cláusulas citadas e indica en `skipped` cada comprobación que no pudo ejecutarse.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-lawcite-adapter
-dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
-```
 
 ## Configuration
 

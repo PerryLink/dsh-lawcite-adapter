@@ -4,6 +4,13 @@
 
 `dsh-lawcite-adapter` reads one statute-citation inventory — the document header plus one row per citation — and checks that inventory's own verifiability and document elements: that each citation states its law and article number, that the article number follows the Chinese form, that a direct quotation has been transcribed into the quotation column, that the power status comes from your own vocabulary, that the citation states where it is used and what it argues, that the document header names its title and type, that citation numbers are not repeated, and that no unreplaced placeholder survives in the quotation column. It does not verify that a statute exists, that it is currently in force, that it has not been amended or repealed, or that it applies to the case.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-lawcite-adapter
+dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
+```
+
 ## What it looks like
 
 ![Terminal demo of dsh-lawcite-adapter: real output over its LC-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-lawcite-adapter/main/docs/assets/dsh-lawcite-adapter-hero.png)
@@ -100,13 +107,6 @@ citation — applies a versioned rule pack, and returns a report.
 | `LC-006` | the document names its title and type | info | local (institutional-configuration) |
 | `LC-007` | citation numbers are unique | info | local (institutional-configuration) |
 | `LC-008` | the quotation column holds no unreplaced placeholder | info | local (institutional-configuration) |
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-lawcite-adapter
-dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
-```
-
 ## Configuration
 
 | Key | Type | Default | Description |
