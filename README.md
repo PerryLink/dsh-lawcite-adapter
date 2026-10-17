@@ -78,10 +78,10 @@ or repealed, or that it applies to the case.
 
 | Surface | Status |
 |---|---|
-| Harness | Peer range `>=0.1.2-rc.1 <0.2.0 \|\| >=0.2.0-0 <0.3.0` — verified to accept both `0.2.0-rc.2` and `0.2.1-alpha.1`. `engines.dsh` is deliberately not declared: it has no reader and cannot reject a host |
+| Harness | Peer range `>=0.1.2-rc.1 <0.2.0 \|\| >=0.2.0-0 <0.3.0` — verified to accept both `0.2.0-rc.2` and `0.2.1-rc.2`. `engines.dsh` is declared as `>=0.2.1-0 <0.3.0` and is enforced by the host since 0.2.1 |
 | Node | `^22.19.0 || >=24.0.0` |
 | Platforms | All (plain ESM; no native code, no network, no model call) |
-| Tool mode | Works in `native`, `ptc` and `both`; for a long submission use `ptc` |
+| Tool mode | Works in `native` and `ptc`; for a long submission use `ptc` |
 
 ## What it does
 
