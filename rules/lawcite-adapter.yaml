@@ -16,7 +16,7 @@
 #     是否注明版本、引用编号是否重复、是否残留模板占位符。
 #   其规范载体是**《中华人民共和国立法法》**关于法律效力位阶的规定、
 #   **《党政机关公文格式》（GB/T 9704—2012）**与各单位的法律文书审查办法。
-#   **核查未取得这些文件的逐字条文**，故每条 excerpt 如实写明，kind 降为 derived-from-principle（封顶 warn）。
+#   **核查未取得这些文件的逐字条文**，故每条 excerpt 如实写明；2026-10-07 起 kind 为 institutional-configuration、severity 为 info。
 #
 # ⚠️⚠️ 另一条**必须保留**的边界：**本插件绝不核验法条是否真实存在、
 #   是否现行有效、是否已被修订或废止、是否适用于本案**。
@@ -89,7 +89,7 @@ rules:
       其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
       **通篇不含任何关于"如何引用法律条文"的规定**。
       ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
-      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **规则本身的定性是对的**（`kind: institutional-configuration`、`severity: info`、`excerpt` 如实写"未取得"），
       **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
 
   - id: LC-003
@@ -121,7 +121,7 @@ rules:
       其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
       **通篇不含任何关于"如何引用法律条文"的规定**。
       ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
-      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **规则本身的定性是对的**（`kind: institutional-configuration`、`severity: info`、`excerpt` 如实写"未取得"），
       **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
 
   - id: LC-004
@@ -175,7 +175,7 @@ rules:
       其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
       **通篇不含任何关于"如何引用法律条文"的规定**。
       ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
-      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **规则本身的定性是对的**（`kind: institutional-configuration`、`severity: info`、`excerpt` 如实写"未取得"），
       **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
 
   - id: LC-006
@@ -206,7 +206,7 @@ rules:
       其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
       **通篇不含任何关于"如何引用法律条文"的规定**。
       ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
-      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **规则本身的定性是对的**（`kind: institutional-configuration`、`severity: info`、`excerpt` 如实写"未取得"），
       **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
 
   - id: LC-007
@@ -237,7 +237,7 @@ rules:
       其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
       **通篇不含任何关于"如何引用法律条文"的规定**。
       ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
-      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **规则本身的定性是对的**（`kind: institutional-configuration`、`severity: info`、`excerpt` 如实写"未取得"），
       **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
 
   - id: LC-008
@@ -270,7 +270,7 @@ rules:
       其第 1—11 章的全部内容是**纸张、版面、印制装订、格式要素的编排位置与字体字号、特定格式与式样**；
       **通篇不含任何关于"如何引用法律条文"的规定**。
       ⇒ 本条的"依据"**应读作本机构法律文书审查口径**，**不是该标准的规定**。
-      **规则本身的定性是对的**（`kind: derived-from-principle`、`severity: warn`、`excerpt` 如实写"未取得"），
+      **规则本身的定性是对的**（`kind: institutional-configuration`、`severity: info`、`excerpt` 如实写"未取得"），
       **故本轮只加说明、不改判定**；若要改判为 `institutional-configuration`，须单独做一次定级调整。
 
 disabled: []

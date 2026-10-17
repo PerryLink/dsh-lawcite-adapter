@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.8] - 2026-10-18
+
+### Fixed
+
+- **The rule-pack header and six notes no longer describe the old `derived-from-principle`/`warn` classification.** All eight rules are `institutional-configuration` / `info`; the README Basis column now says so. No `check` or severity changed.
+
 ## [0.2.7] - 2026-10-18
 
 ### Changed
