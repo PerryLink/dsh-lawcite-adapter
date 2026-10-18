@@ -1,5 +1,7 @@
 # dsh-lawcite-adapter — Verificação de citações de artigos legais e dos elementos do documento jurídico
 
+[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
 
 `dsh-lawcite-adapter` lê um inventário de citações de artigos legais —o cabeçalho do documento mais uma linha por citação— e verifica a verificabilidade e os elementos documentais desse próprio inventário: se cada citação indica a lei e o número do artigo, se o número do artigo segue a forma chinesa, se o texto citado foi transcrito, se a situação de vigência vem do seu próprio vocabulário, se a citação indica onde é usada e o que argumenta, se o cabeçalho do documento declara o título e o tipo, se os números de citação não se repetem e se não resta nenhum marcador de modelo na coluna do texto citado. Não verifica se uma lei existe, se está em vigor, se não foi alterada ou revogada, nem se se aplica ao caso.

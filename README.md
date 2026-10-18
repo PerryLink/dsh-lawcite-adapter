@@ -1,5 +1,7 @@
 # dsh-lawcite-adapter — Statute citation and legal document element check
 
+[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
 
 `dsh-lawcite-adapter` reads one statute-citation inventory — the document header plus one row per citation — and checks that inventory's own verifiability and document elements: that each citation states its law and article number, that the article number follows the Chinese form, that a direct quotation has been transcribed into the quotation column, that the power status comes from your own vocabulary, that the citation states where it is used and what it argues, that the document header names its title and type, that citation numbers are not repeated, and that no unreplaced placeholder survives in the quotation column. It does not verify that a statute exists, that it is currently in force, that it has not been amended or repealed, or that it applies to the case.

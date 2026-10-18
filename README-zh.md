@@ -1,5 +1,7 @@
 # dsh-lawcite-adapter — 法条引用与文书要素核对
 
+[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
 
 `dsh-lawcite-adapter` 读取一份法条引用清单——表头加每处引用一行——核对这份清单自身的可核验性与文书要素：每处引用是否写明法律名称与条号、条号是否写成规范的中文形式、是否抄录了引用原文、效力状态是否取自本机构配置的取值、是否写明引用位置与论证作用、文书表头是否声明标题与文书类型、引用编号是否重复、引用原文栏是否残留未替换的占位符。它不核验法条是否真实存在、是否现行有效、是否已被修订或废止、是否适用于本案。
