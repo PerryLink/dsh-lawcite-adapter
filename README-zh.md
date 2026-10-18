@@ -42,43 +42,19 @@ dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
 
 **边界（中文译文，以英文原文为准）：** 本插件核对一份**法条引用清单**的可核验性与文书要素——每条引用是否写明所引法律与条号，条号是否符合中文写法，直接引文是否照录，效力状态是否取自你的取值口径，引用是否写明其使用位置与所主张的内容，文书是否写明标题与文种，引用编号是否唯一，以及是否残留占位符。它**不**核实某部法律是否存在、当前是否有效、是否未经修改或废止，也不核实其是否适用于本案。
 
-> ### ⚠️ This plugin does not query a statute database — and that is the point
+> ### ⚠️ 本插件不查询法规数据库——而这正是重点（以英文原文为准）
 >
-> **It cannot find the most consequential error: a citation to a statute or article that does not exist, or that
-> has been repealed.** Confirming that requires the national laws-and-regulations database and the facts of the
-> case, which is a legal professional's work. What this plugin checks is whether a citation left behind the
-> elements needed to verify it — the law, the article, the quoted text, the power status, the purpose.
+> **它无法发现后果最严重的错误：引用了不存在的、或已被废止的法律或条款。** 确认这一点需要国家法律法规数据库和案件事实，那是法律专业人员的工作。本插件核对的是：一处引注是否遗漏了核验它所需的要素——法律、条款、引文、效力状态和用途。
 >
-> That boundary is stated in the pack's header, in `LC-001`'s, `LC-003`'s and `LC-004`'s notes, and in the
-> troubleshooting section. Read it before acting on any finding: **a clean report from this plugin is not a
-> statement that the citations are correct.**
+> 这条边界写在规则库库头、`LC-001`、`LC-003` 和 `LC-004` 的说明以及排障一节中。在依据任何发现采取行动之前，请先读它：**本插件给出的一份干净报告，并不等于这些引注就是正确的。**
 >
-> `LC-002` checks the article number's *form* — `第X条` in Chinese or Arabic numerals, allowing `第X条之一` —
-> and nothing about whether the article exists. `LC-003` checks that a quotation is transcribed, not that the
-> transcription matches the statute. `LC-004`'s power-status vocabulary ships **empty** because no statute's
-> current status is built in either.
+> `LC-002` 核对条款编号的*形式*——中文数字或阿拉伯数字的 `第X条`，允许 `第X条之一`——完全不涉及该条款是否存在。`LC-003` 核对的是引文已逐字录入，而不是录入内容与法规一致。`LC-004` 的效力状态词表出厂为**空**，因为任何法规的现行状态同样没有内置。
 >
-> **Every `excerpt` in the rule pack says, in so many words, that the clause text was not obtained.** The regime
-> lives in 《中华人民共和国立法法》, GB/T 9704—2012 and each institution's legal-document review rules. The
-> verification pass could not retrieve verbatim clause text, so the pack states the gap in the `excerpt` field
-> itself and keeps every rule at `warn` or `info`. **When the texts are in hand, replace each `excerpt` with the
-> real clause and raise `kind` to `direct`.**
+> **规则库中的每一个 `excerpt` 都明文写着：条款原文本次未取得。** 该制度见于《中华人民共和国立法法》、GB/T 9704—2012 以及各机构自己的法律文件审核规则。核验环节无法取得逐字条款原文，因此规则库在 `excerpt` 字段本身写明这一缺口，并把每条规则保持在 `warn` 或 `info`。**待取得原文后，请把每个 `excerpt` 换成真实条款，并把 `kind` 提到 `direct`。**
 >
-> ⚠️ **One basis was corrected rather than completed.** GB/T 9704—2012《党政机关公文格式》 was verified chapter by
-> chapter to be a **layout** standard — paper, typesetting, binding, the placement of document elements and the
-> specimen forms. **It contains no provision about citation management at all.** Six rules had been hung on it
-> anyway ("every citation must name the instrument and the article", "a direct quotation must be transcribed",
-> and so on). Those six now declare **the institution's own legal-document review practice** as their basis, are
-> rated **`institutional-configuration`**, and therefore sit at **`info`** rather than `warn`. Leaving them at
-> `warn` while their own note says "read this as the institution's practice" would have contradicted itself.
+> ⚠️ **有一项依据是被更正了，而不是被补全了。** 经逐章核验，GB/T 9704—2012《党政机关公文格式》是一部**版面**标准——纸张、排版、装订、公文要素的位置以及式样。**它完全不包含任何关于引注管理的规定。** 但此前仍有六条规则挂在它名下（「每处引注都必须写明文件与条款」「直接引用必须逐字录入」等等）。这六条规则现在改以**机构自身的法律文件审核实践**为依据，评为 **`institutional-configuration`**，因此定在 **`info`** 而不是 `warn`。如果一边把它们留在 `warn`，一边又在它们自己的说明里写着「请按机构实践来读」，那就自相矛盾了。
 >
-> **`LC-001` was then corrected the same way.** It cited 《中华人民共和国立法法》. That statute was obtained in
-> full and does contain a numbering provision — 第六十五条: 「法律根据内容需要，可以分编、章、节、条、款、项、目」，with
-> numbering rules and an authorisation for the NPC Standing Committee's working body to draft legislative
-> technique rules. But that governs **how a law is itself drafted and numbered**; it says nothing about how an
-> official document cites an existing law. So `LC-001` joins the other seven: **all eight rules in this pack now
-> declare the institution's own review practice as their basis and are rated `institutional-configuration` at
-> `info`.** See `rules/evidence/clause-verification-basis-mismatch.md`.
+> **随后 `LC-001` 也以同样的方式被更正。** 它原本引用《中华人民共和国立法法》。该法已完整取得，其中确实有一条关于编号的规定——第六十五条：「法律根据内容需要，可以分编、章、节、条、款、项、目」，并附有编号规则，以及授权全国人大常委会工作机构拟订立法技术规范的规定。但该条规范的是**法律本身如何起草和编号**；它完全没有说明一份公文应当如何引用一部现行法律。因此 `LC-001` 加入了另外七条的行列：**本规则库中的全部八条规则现在都以机构自身的审核实践为依据，并评为 `institutional-configuration`，定在 `info`。** 参见 `rules/evidence/clause-verification-basis-mismatch.md`。
 
 ## Compatibility
 
