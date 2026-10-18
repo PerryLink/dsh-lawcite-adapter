@@ -40,12 +40,7 @@ dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
 | 本机构法律文书审查口径（本机构配置）—— 原挂《党政机关公文格式》GB/T 9704—2012，已核实为版式标准 | GB/T 9704—2012（本次未取得条文） | LC-002, LC-003, LC-005, LC-006, LC-007, LC-008 |
 | 本机构法律文书审查办法（本机构配置） | 无统一标准（本条依据为本机构配置的效力口径） | LC-004 |
 
-**Boundary:** this plugin checks a **法条引用清单** for verifiability and document elements — that each citation
-names its law and article, that the article number follows the Chinese form, that a direct quotation is
-transcribed, that the power status comes from your vocabulary, that the citation states where it is used and what
-it argues, that the document names its title and type, that citation numbers are unique, and that no placeholder
-survives. It does **not** verify that a statute exists, that it is currently in force, that it has not been amended
-or repealed, or that it applies to the case.
+**边界（中文译文，以英文原文为准）：** 本插件核对一份**法条引用清单**的可核验性与文书要素——每条引用是否写明所引法律与条号，条号是否符合中文写法，直接引文是否照录，效力状态是否取自你的取值口径，引用是否写明其使用位置与所主张的内容，文书是否写明标题与文种，引用编号是否唯一，以及是否残留占位符。它**不**核实某部法律是否存在、当前是否有效、是否未经修改或废止，也不核实其是否适用于本案。
 
 > ### ⚠️ This plugin does not query a statute database — and that is the point
 >
