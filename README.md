@@ -28,6 +28,34 @@ dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
 
 The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
+#### Detailed output
+
+**Tool** `lawcite_adapter`
+
+**Input**
+
+~~~json
+{"documentTitle":"某某买卖合同纠纷起诉状","documentType":"民事起诉状","rows":[{"法律法规名称":"","条号":"","引用原文":"当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。"}]}
+~~~
+ 
+**Output**
+
+~~~json
+{
+  "id": "dsh-lawcite-adapter.LC-001.de09b5a6",
+  "ruleId": "LC-001",
+  "severity": "info",
+  "locator": {
+    "row": 1,
+    "field": "lawName"
+  },
+  "found": "第 1 行 lawName、articleNo 都为空",
+  "expected": "lawName、articleNo 至少应填写一项"
+}
+~~~
+
+*Observed from `dsh-lawcite-adapter/tests/fixtures/LC-001/LC-001-unsafe.json`*
+
 | You ask | What it answers |
 |---|---|
 | A citation row carries an article number but the law name is blank. Is that reported? | Yes. `LC-001` requires the law name and the article number (`lawName`, `articleNo`) on every row and reports the row that leaves either one blank. It checks that they are written, not that the statute or the article exists: it holds no statute database and does not query one. |

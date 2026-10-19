@@ -29,6 +29,34 @@ Saída real deste plugin sobre o seu próprio fixture de teste `LC-001` — não
 
 A tabela abaixo é o conjunto de exemplos: a primeira linha é o caso detalhado e as demais são casos curtos.
 
+#### Saída detalhada
+
+**Ferramenta** `lawcite_adapter`
+
+**Entrada**
+
+~~~json
+{"documentTitle":"某某买卖合同纠纷起诉状","documentType":"民事起诉状","rows":[{"法律法规名称":"","条号":"","引用原文":"当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。"}]}
+~~~
+ 
+**Saída**
+
+~~~json
+{
+  "id": "dsh-lawcite-adapter.LC-001.de09b5a6",
+  "ruleId": "LC-001",
+  "severity": "info",
+  "locator": {
+    "row": 1,
+    "field": "lawName"
+  },
+  "found": "第 1 行 lawName、articleNo 都为空",
+  "expected": "lawName、articleNo 至少应填写一项"
+}
+~~~
+
+*Observado em `dsh-lawcite-adapter/tests/fixtures/LC-001/LC-001-unsafe.json`*
+
 | Você pergunta | O que ele responde |
 |---|---|
 | Uma linha traz o número do artigo, mas o nome da lei está em branco. Isso é reportado? | Sim. `LC-001` exige o nome da lei e o número do artigo (`lawName`, `articleNo`) em cada linha e reporta a linha à qual falta um dos dois. Verifica que estejam escritos, não que a lei ou o artigo exista: não inclui nenhuma base de dados normativa nem a consulta. |
