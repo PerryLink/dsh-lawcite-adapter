@@ -3,6 +3,7 @@
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-lawcite-adapter?metric=downloads)](https://dshfind.com/en/plugins/PerryLink/dsh-lawcite-adapter?ref=badge)
 
 `dsh-lawcite-adapter` एक विधिक-उद्धरण सूची पढ़ता है — दस्तावेज़ का हेडर और प्रत्येक उद्धरण की एक पंक्ति — और उसी सूची की सत्यापन-योग्यता तथा दस्तावेज़-तत्वों की जाँच करता है: क्या प्रत्येक उद्धरण में विधि का नाम और अनुच्छेद संख्या लिखी है, क्या अनुच्छेद संख्या मानक चीनी रूप में है, क्या उद्धृत पाठ लिखा गया है, क्या प्रभावी-स्थिति आपकी अपनी शब्दावली से ली गई है, क्या उद्धरण में यह लिखा है कि वह कहाँ प्रयुक्त है और क्या तर्क देता है, क्या दस्तावेज़ का हेडर अपना शीर्षक और प्रकार बताता है, क्या उद्धरण संख्याएँ दोहराई नहीं गई हैं, और क्या उद्धृत पाठ के कॉलम में कोई अपूरित प्लेसहोल्डर बचा नहीं है। यह नहीं जाँचता कि कोई विधि वास्तव में मौजूद है, प्रभावी है, संशोधित या निरस्त नहीं हुई, या उस मामले पर लागू होती है।
 
