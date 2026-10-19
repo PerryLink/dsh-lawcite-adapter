@@ -15,13 +15,17 @@ dsh --profile <name> --dump-config | grep 'dsh-lawcite-adapter'
 
 ## What it looks like
 
-![Terminal demo of dsh-lawcite-adapter: real output over its LC-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-lawcite-adapter/main/docs/assets/dsh-lawcite-adapter-hero.png)
+![Workflow diagram for dsh-lawcite-adapter: call → plugin → result.](docs/assets/dsh-lawcite-adapter-flow.svg)
 
-![Animated terminal demo of dsh-lawcite-adapter](https://raw.githubusercontent.com/PerryLink/dsh-lawcite-adapter/main/docs/assets/dsh-lawcite-adapter-demo.gif)
+*Workflow overview: call → plugin → result. The examples below use the real command surface.*
 
-Real output from this plugin over its own `LC-001` test fixture — not a mock-up. The rule pack ships no invented quotations, so a finding names both the clause it applied and the fact that the clause text was not obtained.
+
 
 ## What it answers
+
+### Examples
+
+The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
 | You ask | What it answers |
 |---|---|
