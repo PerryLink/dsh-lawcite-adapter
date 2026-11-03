@@ -1,6 +1,6 @@
 # dsh-lawcite-adapter — 法条引用与文书要素核对
 
-## 快速试跑（1 分钟）
+### 快速试跑（1 分钟）
 
 ```bash
 node samples/quickstart/run.mjs --check
