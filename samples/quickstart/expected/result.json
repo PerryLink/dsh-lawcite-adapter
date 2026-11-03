@@ -1,0 +1,10 @@
+{
+  "tool": "lawcite_adapter",
+  "issueCount": 1,
+  "summary": {
+    "error": 0,
+    "warn": 0,
+    "info": 1
+  },
+  "skippedCount": 1
+}
