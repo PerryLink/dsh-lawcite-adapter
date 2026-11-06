@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-dark.svg">
-  <img src="docs/assets/dsh-lawcite-adapter-flow-light.svg" width="100%" alt="dsh-lawcite-adapter 数据流：引用清单（JSON/YAML）→ parseMaterial 读取 → LC-001…LC-008 规则包 → runCheck → 报告（found/expected/fix + skipped）；只列差异，不改原件">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-lawcite-adapter-hero-zh-light.webp" width="100%" alt="dsh-lawcite-adapter 配图：左侧是插件名、两行标题与价值句，以及「不查法规库、不下结论、不改原件」的边界；右侧是一份法条引用清单——文书表头与两行引用，第一行的 lawName、articleNo 为空并以虚线框标出，第二行的 quotedText 残留未替换占位符；旁边是差异清单：LC-001 命中、LC-008 命中、LC-004 因 values 未配置而 skipped；页脚注明只列差异、不下结论、原件不改。">
 </picture>
 
 # dsh-lawcite-adapter
@@ -37,6 +37,11 @@ dsh plugin --profile <name> add dsh-lawcite-adapter
 ## 它是什么
 
 `dsh-lawcite-adapter` 读取一份法条引用清单——文书表头加每处引用一行——核对这份清单自身可以机械判定的事项：每处引用是否写明法律名称与条号、条号是否写成规范的中文形式、是否抄录了引用原文、效力状态是否取自本机构配置的取值、是否写明引用位置与论证作用、文书表头是否声明标题与文书类型、引用编号是否重复、引用原文栏是否残留未替换的占位符。你交出原始材料（表格、清单或文书；Excel 可先转成 JSON/YAML，对话里也能代转），它返回一份「哪一行、哪一栏、差什么」的差异清单。它不核验法条是否真实存在、是否现行有效、是否已被修订或废止、是否适用于本案；不下合规结论、不认定责任、不替代审核人，也绝不修改原件。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-lawcite-adapter-flow-v5-light.svg" width="100%" alt="dsh-lawcite-adapter 结构图：文书表头与一行引用中 7 个被规则读取的字段并列为栏位，每条规则标注在它所读的字段之下——LC-001 presenceAny（lawName + articleNo）、LC-002 pattern、LC-003 presence 与 LC-008 containsAny（quotedText）、LC-004 enum（effectiveStatus）、LC-005 presenceAny（usage + purpose）、LC-006 headerPresence（表头）、LC-007 unique（citationNo）。以自带样例 LC-001-unsafe.json 的一次真实运行为例：LC-001 命中一处（第 1 行，lawName、articleNo 都为空），LC-004 因 values 未配置而写入 skipped，其余六条规则跑过而未命中、两栏都不进；报告为 error 0 / warn 0 / info 1、issueCount 1、skippedCount 1，并保留 not checked 边界（法条是否存在、是否现行有效、是否修订或废止、是否适用、合规与责任）与「只列差异、不下结论、原件不改」的免责声明。">
+</picture>
 
 ## 三步上手
 
@@ -323,7 +328,7 @@ pnpm run check:readmes   # 五语 README 一致性
 node ../scripts/sync-shared.mjs dsh-lawcite-adapter   # 从 ../_shared 刷新 src/shared
 ```
 
-插件是数据驱动的：`src/model.ts` 声明表格形态，共享件提供读取器与检查引擎，规则包声明每一条检查。规则包是数据不是代码：改 `rules/*.yaml` 即切换规则集，无需动 TypeScript；规则包在加载期校验，而非被信任。README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow），可重复执行；本插件无 UI，hero 为手绘 SVG 流程图（深浅双版，图内仅命令面 token）。
+插件是数据驱动的：`src/model.ts` 声明表格形态，共享件提供读取器与检查引擎，规则包声明每一条检查。规则包是数据不是代码：改 `rules/*.yaml` 即切换规则集，无需动 TypeScript；规则包在加载期校验，而非被信任。README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow）：hero 为 zh/en × 深浅四张 webp 横幅，结构图为手写 SVG（深浅双版，字段 × 规则栏位对照）。
 
 Topics：`dsh`, `dsh-plugin`, `deepseek-harness`, `cordis`, `lawcite`
 

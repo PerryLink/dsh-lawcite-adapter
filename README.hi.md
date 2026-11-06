@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-dark.svg">
-  <img src="docs/assets/dsh-lawcite-adapter-flow-light.svg" width="100%" alt="dsh-lawcite-adapter डेटा प्रवाह: उद्धरण सूची (JSON/YAML) → parseMaterial → LC-001…LC-008 नियम-पैक → runCheck → रिपोर्ट (found/expected/fix + skipped); केवल अंतर, मूल कभी संशोधित नहीं होता">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-hero-en-dark.webp">
+  <img src="docs/assets/dsh-lawcite-adapter-hero-en-light.webp" width="100%" alt="dsh-lawcite-adapter हीरो: बाईं ओर प्लगइन का नाम, दो पंक्तियों वाला शीर्षक और सीमा-पंक्तियाँ (कोई क़ानून-डेटाबेस नहीं, कोई निर्णय नहीं, मूल में बदलाव नहीं); दाईं ओर उद्धरण सूची — दस्तावेज़ हेडर और दो पंक्तियाँ, पंक्ति 1 में lawName और articleNo खाली, पंक्ति 2 के quotedText में बिना बदला प्लेसहोल्डर — और उससे बनी अंतर-सूची: LC-001 और LC-008 संकेत, LC-004 skipped क्योंकि values सेट नहीं है; पाद में केवल अंतर, कोई निर्णय नहीं, मूल कभी नहीं बदलता।">
 </picture>
 
 # dsh-lawcite-adapter
@@ -37,6 +37,11 @@ dsh plugin --profile <name> add dsh-lawcite-adapter
 ## यह क्या है
 
 `dsh-lawcite-adapter` एक उद्धरण सूची पढ़ता है — दस्तावेज़ का शीर्षलेख और प्रत्येक उद्धरण के लिए एक पंक्ति — और वह जाँचता है जो इस सूची से यंत्रवत् अपेक्षित किया जा सकता है: क्या हर उद्धरण में कानून का नाम और धारा संख्या लिखी है, क्या धारा संख्या चीनी रूप में है, क्या शब्दशः उद्धरण अपने कॉलम में उतारा गया है, क्या प्रभावी स्थिति आपकी अपनी शब्दावली से है, क्या उद्धरण बताता है कि वह कहाँ प्रयुक्त है और क्या सिद्ध करता है, क्या शीर्षलेख दस्तावेज़ का शीर्षक और प्रकार बताता है, क्या उद्धरण संख्याएँ दोहराई नहीं गई हैं, और क्या उद्धरण कॉलम में कोई अपरिवर्तित टेम्पलेट चिह्न बचा है। आप मूल सामग्री सौंपते हैं (तालिका, सूची या दस्तावेज़; Excel को पहले JSON/YAML में बदला जा सकता है, प्लेटफ़ॉर्म समर्थन करे तो चैट में भी) और आपको «कौन-सी पंक्ति, कौन-सा कॉलम, क्या कम है» की सूची मिलती है। यह यह सत्यापित नहीं करता कि कोई कानून मौजूद है, वर्तमान में प्रभावी है, संशोधित या निरसित नहीं हुआ, या मामले पर लागू होता है। यह अनुपालन नहीं तय करता, उत्तरदायित्व नहीं ठहराता, समीक्षक की जगह नहीं लेता — और मूल को कभी संशोधित नहीं करता।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-lawcite-adapter-flow-v5-light.svg" width="100%" alt="dsh-lawcite-adapter संरचना: दस्तावेज़ हेडर और एक उद्धरण पंक्ति के सात नियम-पठित फ़ील्ड स्तंभों में; हर नियम उन फ़ील्ड के नीचे जिन्हें वह पढ़ता है — LC-001 presenceAny (lawName + articleNo), LC-002 pattern, LC-003 presence और LC-008 containsAny (quotedText), LC-004 enum (effectiveStatus), LC-005 presenceAny (usage + purpose), LC-006 headerPresence (header), LC-007 unique (citationNo)। बंडल किए गए LC-001-unsafe.json नमूने के वास्तविक रन में LC-001 एक अंतर देता है (पंक्ति 1, lawName और articleNo दोनों खाली), LC-004 values सेट न होने के कारण skipped में जाता है, और शेष छह नियम बिना अंतर के चलते हैं और किसी सूची में नहीं आते। रिपोर्ट में error 0 / warn 0 / info 1, issueCount 1, skippedCount 1; अलग पट्टी सीमा दिखाती है: क़ानून का अस्तित्व, प्रभावी होना, संशोधन/निरसन, लागू होना, अनुपालन और दायित्व नहीं जाँचे जाते। केवल अंतर, कोई निर्णय नहीं, मूल कभी नहीं बदलता।">
+</picture>
 
 ## तीन चरणों में शुरुआत
 
@@ -334,7 +339,7 @@ pnpm run check:readmes   # पाँच भाषाओं के README की 
 node ../scripts/sync-shared.mjs dsh-lawcite-adapter   # ../_shared से src/shared ताज़ा करें
 ```
 
-प्लगइन डेटा-चालित है: `src/model.ts` तालिका का आकार घोषित करता है, साझा किट पाठक और जाँच-इंजन देता है, और नियम-पैक हर जाँच घोषित करता है। नियम-पैक डेटा है, कोड नहीं: `rules/*.yaml` बदलने से नियम-समूह बदल जाता है, TypeScript छूने की ज़रूरत नहीं; पैक लोड पर सत्यापित होता है, मान लिया नहीं जाता। README की छवियाँ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) से क्रमादेशित रूप से बनती हैं और दोबारा चलाई जा सकती हैं; इस प्लगइन में कोई UI नहीं, इसलिए hero हाथ से लिखा SVG प्रवाह-चित्र है (हल्का + गहरा जोड़ी, केवल कमांड-सतह टोकन)।
+प्लगइन डेटा-चालित है: `src/model.ts` तालिका का आकार घोषित करता है, साझा किट पाठक और जाँच-इंजन देता है, और नियम-पैक हर जाँच घोषित करता है। नियम-पैक डेटा है, कोड नहीं: `rules/*.yaml` बदलने से नियम-समूह बदल जाता है, TypeScript छूने की ज़रूरत नहीं; पैक लोड पर सत्यापित होता है, मान लिया नहीं जाता। README की छवियाँ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) से क्रमादेशित रूप से बनती हैं: hero चार webp फ़ाइलों का सेट है (zh/en × हल्का/गहरा), और संरचना-चित्र हाथ से लिखा SVG है (हल्का + गहरा, फ़ील्ड × नियम स्तंभ-मानचित्र)।
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `cordis`, `lawcite`
 

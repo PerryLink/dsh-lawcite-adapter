@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-dark.svg">
-  <img src="docs/assets/dsh-lawcite-adapter-flow-light.svg" width="100%" alt="fluxo de dados do dsh-lawcite-adapter: inventário de citações (JSON/YAML) → parseMaterial → pacote de regras LC-001…LC-008 → runCheck → relatório (found/expected/fix + skipped); apenas diferenças, o original nunca é modificado">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-hero-en-dark.webp">
+  <img src="docs/assets/dsh-lawcite-adapter-hero-en-light.webp" width="100%" alt="dsh-lawcite-adapter: à esquerda, o nome do plugin, o lema em duas linhas e o limite (sem base de dados normativa, sem veredito, sem alterar o original); à direita, um inventário de citações —cabeçalho do documento e duas linhas, com lawName e articleNo vazios na linha 1 e um marcador não substituído em quotedText na linha 2— ao lado da lista de diferenças: achados LC-001 e LC-008, e LC-004 em skipped porque values não está configurado; o rodapé indica apenas diferenças, sem veredito, o original nunca é modificado.">
 </picture>
 
 # dsh-lawcite-adapter
@@ -37,6 +37,11 @@ dsh plugin --profile <name> add dsh-lawcite-adapter
 ## O que é
 
 O `dsh-lawcite-adapter` lê um inventário de citações —o cabeçalho do documento mais uma linha por citação— e confere o que esse inventário permite decidir de forma mecânica: se cada citação indica a lei e o número do artigo, se o número segue a forma chinesa, se a citação literal foi transcrita na coluna própria, se o status de vigência vem do seu vocabulário, se a citação indica onde é usada e o que sustenta, se o cabeçalho declara título e tipo de documento, se os números de citação se repetem e se sobrou algum marcador de modelo não substituído na coluna de citação literal. Você entrega o material original (uma tabela, um registro ou um documento; o Excel pode ser convertido antes para JSON/YAML, inclusive no chat quando a plataforma permite) e ele devolve uma lista de diferenças. Não verifica se uma lei existe, se está vigente, se foi alterada ou revogada, nem se se aplica ao caso. Não decide conformidade, não atribui responsabilidade, não substitui quem revisa e nunca altera o original.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-lawcite-adapter-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-lawcite-adapter: o cabeçalho e os sete campos de uma linha de citações que as regras leem são dispostos como colunas; cada regra aparece sob os campos que lê —LC-001 presenceAny (lawName e articleNo), LC-002 pattern, LC-003 presence e LC-008 containsAny (quotedText), LC-004 enum (effectiveStatus), LC-005 presenceAny (usage e purpose), LC-006 headerPresence (cabeçalho), LC-007 unique (citationNo)—. Na execução real do exemplo LC-001-unsafe.json, LC-001 produz um achado (linha 1, lawName e articleNo vazios), LC-004 não é executada porque values está sem configuração e entra em skipped, e as outras seis regras não produzem diferenças e não entram em nenhuma lista. O relatório traz error 0 / warn 0 / info 1, issueCount 1 e skippedCount 1; uma faixa separada mantém visível o limite: existência da norma, vigência, alteração ou revogação, aplicabilidade, conformidade e responsabilidade não são verificadas. Apenas diferenças, sem veredito, o original nunca é modificado.">
+</picture>
 
 ## Instalação em três passos
 
@@ -334,7 +339,7 @@ pnpm run check:readmes   # coerência dos README em cinco idiomas
 node ../scripts/sync-shared.mjs dsh-lawcite-adapter   # atualiza src/shared a partir de ../_shared
 ```
 
-O plugin é orientado por dados: `src/model.ts` declara a forma da tabela, o kit compartilhado fornece o leitor e o motor de verificação, e o pacote de regras declara cada verificação. O pacote de regras é dado, não código: editar `rules/*.yaml` troca o conjunto de regras sem tocar em TypeScript; o pacote é validado na carga, não presumido. As imagens do README são geradas por programa por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) e podem ser regeradas sem risco; este plugin não tem interface, então o hero é um diagrama de fluxo SVG escrito à mão (par claro + escuro, só com tokens da superfície de comandos).
+O plugin é orientado por dados: `src/model.ts` declara a forma da tabela, o kit compartilhado fornece o leitor e o motor de verificação, e o pacote de regras declara cada verificação. O pacote de regras é dado, não código: editar `rules/*.yaml` troca o conjunto de regras sem tocar em TypeScript; o pacote é validado na carga, não presumido. As imagens do README são geradas por programa por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow): o hero é um conjunto de quatro webp (zh/en × claro/escuro) e o diagrama estrutural é SVG escrito à mão (claro + escuro, mapa de colunas campo × regra).
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `cordis`, `lawcite`
 

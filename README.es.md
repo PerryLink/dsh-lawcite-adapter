@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-dark.svg">
-  <img src="docs/assets/dsh-lawcite-adapter-flow-light.svg" width="100%" alt="flujo de datos de dsh-lawcite-adapter: inventario de citas (JSON/YAML) → parseMaterial → paquete de reglas LC-001…LC-008 → runCheck → informe (found/expected/fix + skipped); solo diferencias, el original nunca se modifica">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-hero-en-dark.webp">
+  <img src="docs/assets/dsh-lawcite-adapter-hero-en-light.webp" width="100%" alt="dsh-lawcite-adapter: a la izquierda, el nombre del plugin, el lema en dos líneas y el límite (sin base de datos normativa, sin veredicto, sin editar el original); a la derecha, un inventario de citas —cabecera del documento y dos filas, con lawName y articleNo vacíos en la fila 1 y un marcador sin sustituir en quotedText de la fila 2— junto a la lista de diferencias: hallazgos LC-001 y LC-008, y LC-004 en skipped porque values no está configurado; el pie indica solo diferencias, sin veredicto, el original nunca se modifica.">
 </picture>
 
 # dsh-lawcite-adapter
@@ -37,6 +37,11 @@ dsh plugin --profile <name> add dsh-lawcite-adapter
 ## Qué es
 
 `dsh-lawcite-adapter` lee un inventario de citas —la cabecera del documento más una fila por cita— y comprueba lo que ese inventario puede verificarse de forma mecánica: que cada cita indique la ley y el número de artículo, que el número siga la forma china, que se haya transcrito la cita literal en su columna, que el estado de vigencia provenga de tu propio vocabulario, que la cita indique dónde se usa y qué sostiene, que la cabecera declare el título y el tipo de documento, que los números de cita no se repitan y que no quede ningún marcador de plantilla sin sustituir en la columna de cita literal. Tú entregas el material original (una tabla, un registro o un documento; Excel puede convertirse antes a JSON/YAML, también en el chat si la plataforma lo admite) y él devuelve una lista de diferencias. No verifica que una ley exista, esté vigente, no haya sido modificada o derogada, ni que se aplique al caso. No dictamina cumplimiento, no atribuye responsabilidad, no sustituye a quien revisa y nunca modifica el original.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-lawcite-adapter-flow-v5-light.svg" width="100%" alt="Estructura de dsh-lawcite-adapter: la cabecera y los siete campos de una fila de citas que leen las reglas se disponen como columnas; cada regla aparece bajo los campos que lee —LC-001 presenceAny (lawName y articleNo), LC-002 pattern, LC-003 presence y LC-008 containsAny (quotedText), LC-004 enum (effectiveStatus), LC-005 presenceAny (usage y purpose), LC-006 headerPresence (cabecera), LC-007 unique (citationNo)—. En la ejecución real del ejemplo LC-001-unsafe.json, LC-001 produce un hallazgo (fila 1, lawName y articleNo vacíos), LC-004 no se ejecuta porque values está sin configurar y se registra en skipped, y las otras seis reglas no producen diferencias y no entran en ninguna lista. El informe lleva error 0 / warn 0 / info 1, issueCount 1 y skippedCount 1; una franja aparte mantiene visible el límite: existencia de la norma, vigencia, modificación o derogación, aplicabilidad, cumplimiento y responsabilidad no se comprueban. Solo diferencias, sin veredicto, el original nunca se modifica.">
+</picture>
 
 ## Instalación en tres pasos
 
@@ -334,7 +339,7 @@ pnpm run check:readmes   # coherencia de los README en cinco idiomas
 node ../scripts/sync-shared.mjs dsh-lawcite-adapter   # refresca src/shared desde ../_shared
 ```
 
-El complemento es dirigido por datos: `src/model.ts` declara la forma de la tabla, el kit compartido aporta el lector y el motor de comprobación, y el paquete de reglas declara cada comprobación. El paquete de reglas es dato, no código: editar `rules/*.yaml` cambia el conjunto de reglas sin tocar TypeScript; el paquete se valida al cargar, no se da por bueno. Las imágenes del README se generan por programa con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) y pueden regenerarse sin riesgo; este complemento no tiene interfaz, así que el hero es un diagrama de flujo SVG escrito a mano (par claro + oscuro, solo con tokens de la superficie de comandos).
+El complemento es dirigido por datos: `src/model.ts` declara la forma de la tabla, el kit compartido aporta el lector y el motor de comprobación, y el paquete de reglas declara cada comprobación. El paquete de reglas es dato, no código: editar `rules/*.yaml` cambia el conjunto de reglas sin tocar TypeScript; el paquete se valida al cargar, no se da por bueno. Las imágenes del README se generan por programa con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow): el hero es un conjunto de cuatro webp (zh/en × claro/oscuro) y el diagrama estructural es SVG escrito a mano (claro + oscuro, mapa de columnas campo × regla).
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `cordis`, `lawcite`
 

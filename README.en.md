@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-dark.svg">
-  <img src="docs/assets/dsh-lawcite-adapter-flow-light.svg" width="100%" alt="dsh-lawcite-adapter data flow: citation inventory (JSON/YAML) → parseMaterial → LC-001…LC-008 rule pack → runCheck → report (found/expected/fix + skipped); differences only, the original is never modified">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-hero-en-dark.webp">
+  <img src="docs/assets/dsh-lawcite-adapter-hero-en-light.webp" width="100%" alt="dsh-lawcite-adapter hero: the left column carries the plugin name, a two-line wordmark and the boundary lines (no statute database, no verdict, no edits); on the right is a citation inventory — a document header plus two citation rows, with lawName and articleNo empty in row 1 and an unreplaced placeholder in row 2 quotedText — pinned to the difference list it produces: LC-001 and LC-008 findings, and LC-004 skipped because its values list is unset; the footer reads differences only, no verdict, the original is never modified.">
 </picture>
 
 # dsh-lawcite-adapter
@@ -37,6 +37,11 @@ dsh plugin --profile <name> add dsh-lawcite-adapter
 ## What it is
 
 `dsh-lawcite-adapter` reads one citation inventory — the document header plus one row per citation — and checks what such an inventory can be held to mechanically: that each citation states its law and article number, that the article number follows the Chinese form, that a direct quotation has been transcribed into the quotation column, that the power status comes from your own vocabulary, that the citation states where it is used and what it argues, that the document header names its title and type, that citation numbers are not repeated, and that no unreplaced placeholder survives in the quotation column. You hand it the source material (a table, register or document; Excel can be converted to JSON/YAML first, in chat if the platform supports it) and it returns a list of differences. It does not verify that a statute exists, that it is currently in force, that it has not been amended or repealed, or that it applies to the case. It does not decide compliance, does not assign liability, does not replace the reviewer — and it never modifies the original.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-lawcite-adapter-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-lawcite-adapter-flow-v5-light.svg" width="100%" alt="dsh-lawcite-adapter structure: the document header and the seven rule-bearing fields of one citation row are laid out as columns, and every rule sits under the field or fields it reads — LC-001 presenceAny on lawName and articleNo, LC-002 pattern on articleNo, LC-003 presence and LC-008 containsAny on quotedText, LC-004 enum on effectiveStatus, LC-005 presenceAny on usage and purpose, LC-006 headerPresence on the header, LC-007 unique on citationNo. In the real run of the bundled LC-001-unsafe.json sample, LC-001 reports one issue (row 1, lawName and articleNo both empty), LC-004 cannot run because values is unset and reports itself in skipped, and the other six rules ran clean and enter neither list. The report carries error 0 / warn 0 / info 1, issueCount 1 and skippedCount 1; a separate strip keeps the boundary visible: statute existence, being in force, amendment or repeal, applicability, compliance and liability are not checked. Differences only, no verdict, the original is never modified.">
+</picture>
 
 ## Three-step setup
 
@@ -334,7 +339,7 @@ pnpm run check:readmes   # five-language README consistency
 node ../scripts/sync-shared.mjs dsh-lawcite-adapter   # refresh src/shared from ../_shared
 ```
 
-The plugin is data-driven: `src/model.ts` declares the table shape, the shared kit supplies the reader and the check engine, and the rule pack declares every check. The rule pack is data, not code: edit `rules/*.yaml` to switch the rule set without touching TypeScript; the pack is validated on load, not trusted. README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) and can be re-run safely; this plugin has no UI, so the hero is a hand-written SVG flow diagram (light + dark pair, command-surface tokens only).
+The plugin is data-driven: `src/model.ts` declares the table shape, the shared kit supplies the reader and the check engine, and the rule pack declares every check. The rule pack is data, not code: edit `rules/*.yaml` to switch the rule set without touching TypeScript; the pack is validated on load, not trusted. README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow): the hero is a four-file webp banner set (zh/en × light/dark), and the structure diagram is hand-written SVG (light + dark, a field × rule column map).
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `cordis`, `lawcite`
 
