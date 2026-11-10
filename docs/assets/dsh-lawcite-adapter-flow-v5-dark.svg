@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="660" viewBox="0 0 1100 660" role="img" aria-labelledby="fig-title fig-desc">
+<title id="fig-title">dsh-lawcite-adapter: one citation inventory, eight rules, a field-column map</title>
+<desc id="fig-desc">The header band and the seven rule-bearing fields of one citation row are laid out as columns. Each rule sits under the field or fields it reads, with the engine's own check kind: LC-001 presenceAny reads lawName and articleNo, LC-002 pattern reads articleNo, LC-003 presence and LC-008 containsAny read quotedText, LC-004 enum reads effectiveStatus, LC-005 presenceAny reads usage and purpose, LC-006 headerPresence reads the header, LC-007 unique reads citationNo. The real run of samples/quickstart/input/LC-001-unsafe.json yields one issue (LC-001, row 1, lawName: lawName and articleNo both empty) and one skipped rule (LC-004: values unset, enum cannot run). LC-002, LC-003, LC-005, LC-006, LC-007 and LC-008 ran and found nothing, so they enter neither list. The report band carries error 0, warn 0, info 1, issueCount 1, skippedCount 1, buildView, markdown plus reportJson, the wording guard and the disclaimer. The strip above the report keeps the boundary visible: statute existence, being in force, amendment or repeal, applicability, compliance and liability are not checked. The tool only reads file or material; the original is never modified and the verdict stays with the reviewer.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0.18" y2="1">
+    <stop offset="0" stop-color="#131a2a"/><stop offset="1" stop-color="#0c1016"/>
+  </linearGradient>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="180%">
+    <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#000000" flood-opacity="0.52"/>
+  </filter>
+  <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+    <circle cx="1.2" cy="1.2" r="1.2" fill="#2a3346"/>
+  </pattern>
+</defs>
+<rect x="0" y="0" width="1100" height="660" rx="22" fill="url(#bg)"/>
+<rect x="0" y="0" width="1100" height="660" rx="22" fill="url(#dots)" opacity="0.5"/>
+
+<text x="44" y="50" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="29" xml:space="preserve" font-weight="700">dsh-lawcite-adapter</text>
+<text x="44" y="76" fill="#a8b1c4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="14.5" xml:space="preserve" font-weight="400">8 rules read one citation inventory; every finding names a row and a field.</text>
+<rect x="718.0" y="26" width="338.0" height="20.5" rx="10.25" fill="#242d42" stroke="none" stroke-width="1"/><text x="887.0" y="40.16" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11.5" xml:space="preserve" font-weight="700" text-anchor="middle">rules/lawcite-adapter.yaml · v2026.1 · 8 rules</text>
+<text x="44" y="104" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">IN  ·  file | material  ·  JSON / YAML  ·  header + rows[]  ·  read-only</text>
+<text x="1056" y="104" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400" text-anchor="end">OUT  ·  issues[] · skipped[] · summary · markdown + reportJson</text>
+<line x1="44" y1="116" x2="1056" y2="116" stroke="#2b3348" stroke-width="1" stroke-linecap="round"/>
+<text x="44" y="142" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12" xml:space="preserve" font-weight="700">01</text>
+<text x="70" y="142" fill="#8496f5" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="12" xml:space="preserve" font-weight="700" letter-spacing="1.4">MATERIAL</text>
+<text x="1056" y="142" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="400" text-anchor="end">parseMaterial · aliases → 12 canonical fields</text>
+<rect x="44" y="152" width="1012" height="68" rx="16" fill="#1b2231" stroke="#2e374b" stroke-width="1.4" filter="url(#soft)"/>
+<rect x="44" y="152" width="4" height="68" rx="2" fill="#8496f5"/>
+<text x="60" y="174" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">documentTitle</text>
+<text x="60" y="196" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13.5" xml:space="preserve" font-weight="400">某某买卖合同纠纷起诉状</text>
+<text x="300" y="174" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">documentType</text>
+<text x="300" y="196" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13.5" xml:space="preserve" font-weight="400">民事起诉状</text>
+<text x="470" y="174" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">author</text>
+<text x="470" y="196" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13.5" xml:space="preserve" font-weight="400">王律师</text>
+<text x="580" y="174" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">draftedAt</text>
+<text x="580" y="196" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="400">2026-05-12</text>
+<rect x="874" y="164" width="58.0" height="20.5" rx="10.25" fill="#242d42" stroke="none" stroke-width="1"/><text x="903.0" y="178.16" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-006</text>
+<text x="874" y="199" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">headerPresence</text>
+<text x="1036" y="174" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="400" text-anchor="end">ran · neither list</text>
+<text x="44" y="238" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12" xml:space="preserve" font-weight="700">02</text>
+<text x="70" y="238" fill="#8496f5" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="12.5" xml:space="preserve" font-weight="700" letter-spacing="1.2">FIELD × RULE</text>
+<text x="212" y="238" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="400">each rule sits under the field it reads; one row is enough</text>
+<text x="1056" y="238" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="400" text-anchor="end">onlyRules / disabledRules → skipped[]</text>
+<rect x="44" y="250" width="136" height="206" rx="16" fill="#1b2231" stroke="#2e374b" stroke-width="1.4" filter="url(#soft)"/>
+<text x="58" y="286" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" xml:space="preserve" font-weight="700">citationNo</text>
+<text x="58" y="326" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="24" xml:space="preserve" font-weight="700">1</text>
+<rect x="58" y="356" width="58.0" height="21.5" rx="10.75" fill="#242d42" stroke="none" stroke-width="1"/><text x="87.0" y="371.0" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-007</text>
+<text x="58" y="390" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">unique</text>
+<circle cx="62" cy="438" r="3.6" fill="none" stroke="#737b8d" stroke-width="1.3"/>
+<text x="72" y="442" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400">ran</text>
+<rect x="190" y="250" width="136" height="206" rx="16" fill="#202839" stroke="#8496f5" stroke-width="2" filter="url(#soft)"/>
+<rect x="191" y="251" width="134" height="3" rx="1.5" fill="#8496f5"/>
+<text x="204" y="286" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" xml:space="preserve" font-weight="700">lawName</text>
+<text x="204" y="320" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="28" xml:space="preserve" font-weight="700">—</text>
+<text x="204" y="338" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">(empty)</text>
+<rect x="204" y="356" width="58.0" height="21.5" rx="10.75" fill="#242d42" stroke="none" stroke-width="1"/><text x="233.0" y="371.0" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-001</text>
+<text x="204" y="390" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">presenceAny</text>
+<circle cx="208" cy="438" r="3.6" fill="#8496f5"/>
+<text x="218" y="442" fill="#8496f5" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="700">issue</text>
+<rect x="336" y="250" width="136" height="206" rx="16" fill="#1b2231" stroke="#8496f5" stroke-width="1.5" filter="url(#soft)"/>
+<rect x="337" y="251" width="134" height="3" rx="1.5" fill="#8496f5" opacity="0.5"/>
+<text x="350" y="286" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" xml:space="preserve" font-weight="700">articleNo</text>
+<text x="350" y="320" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="28" xml:space="preserve" font-weight="700">—</text>
+<text x="350" y="338" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">(empty)</text>
+<rect x="350" y="346" width="58.0" height="21.5" rx="10.75" fill="#242d42" stroke="none" stroke-width="1"/><text x="379.0" y="361.0" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-001</text>
+<text x="350" y="378" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">presenceAny</text>
+<rect x="350" y="392" width="58.0" height="21.5" rx="10.75" fill="#242d42" stroke="none" stroke-width="1"/><text x="379.0" y="407.0" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-002</text>
+<text x="350" y="424" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">pattern</text>
+<circle cx="354" cy="438" r="3.6" fill="none" stroke="#8496f5" stroke-width="1.4"/>
+<text x="364" y="442" fill="#8496f5" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="700">same issue</text>
+<rect x="482" y="250" width="136" height="206" rx="16" fill="#1b2231" stroke="#2e374b" stroke-width="1.4" filter="url(#soft)"/>
+<text x="496" y="286" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" xml:space="preserve" font-weight="700">quotedText</text>
+<text x="496" y="308" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="12.5" xml:space="preserve" font-weight="400">当事人一方不履行</text>
+<text x="496" y="326" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="12.5" xml:space="preserve" font-weight="400">合同义务……</text>
+<rect x="496" y="336" width="58.0" height="21.5" rx="10.75" fill="#242d42" stroke="none" stroke-width="1"/><text x="525.0" y="351.0" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-003</text>
+<text x="496" y="368" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">presence</text>
+<rect x="496" y="382" width="58.0" height="21.5" rx="10.75" fill="#242d42" stroke="none" stroke-width="1"/><text x="525.0" y="397.0" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-008</text>
+<text x="496" y="414" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">containsAny</text>
+<circle cx="500" cy="438" r="3.6" fill="none" stroke="#737b8d" stroke-width="1.3"/>
+<text x="510" y="442" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400">ran</text>
+<rect x="628" y="250" width="136" height="206" rx="16" fill="#1b2231" stroke="#2e374b" stroke-width="1.4" filter="url(#soft)"/>
+<text x="642" y="286" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" xml:space="preserve" font-weight="700">usage</text>
+<text x="642" y="308" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="12.5" xml:space="preserve" font-weight="400">第 2 部分</text>
+<text x="642" y="326" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="12.5" xml:space="preserve" font-weight="400">事实与理由</text>
+<rect x="642" y="356" width="58.0" height="21.5" rx="10.75" fill="#242d42" stroke="none" stroke-width="1"/><text x="671.0" y="371.0" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-005</text>
+<text x="642" y="390" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">presenceAny</text>
+<circle cx="646" cy="438" r="3.6" fill="none" stroke="#737b8d" stroke-width="1.3"/>
+<text x="656" y="442" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400">ran</text>
+<rect x="774" y="250" width="136" height="206" rx="16" fill="#1b2231" stroke="#2e374b" stroke-width="1.4" filter="url(#soft)"/>
+<text x="788" y="286" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" xml:space="preserve" font-weight="700">purpose</text>
+<text x="788" y="326" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" xml:space="preserve" font-weight="400">违约责任依据</text>
+<rect x="788" y="356" width="58.0" height="21.5" rx="10.75" fill="#242d42" stroke="none" stroke-width="1"/><text x="817.0" y="371.0" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-005</text>
+<text x="788" y="390" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">presenceAny</text>
+<circle cx="792" cy="438" r="3.6" fill="none" stroke="#737b8d" stroke-width="1.3"/>
+<text x="802" y="442" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400">ran</text>
+<rect x="920" y="250" width="136" height="206" rx="16" fill="#202839" stroke="#8496f5" stroke-width="1.8" stroke-dasharray="5 4" filter="url(#soft)"/>
+<text x="934" y="286" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" xml:space="preserve" font-weight="700">effectiveStatus</text>
+<text x="934" y="326" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="15" xml:space="preserve" font-weight="400">现行有效</text>
+<rect x="934" y="356" width="58.0" height="21.5" rx="10.75" fill="#242d42" stroke="#8496f5" stroke-width="1" stroke-dasharray="5 4"/><text x="963.0" y="371.0" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700" text-anchor="middle">LC-004</text>
+<text x="934" y="390" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">enum</text>
+<circle cx="938" cy="438" r="3.6" fill="none" stroke="#8496f5" stroke-width="1.4" stroke-dasharray="2 2"/>
+<text x="948" y="442" fill="#8496f5" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="700">skipped</text>
+<line x1="44" y1="464" x2="1056" y2="464" stroke="#8496f5" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="4 6" opacity="0.45"/>
+<text x="44" y="480" fill="#d9a441" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="700" letter-spacing="0.8">NOT CHECKED</text>
+<text x="154" y="480" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="400">statute existence · being in force · amendment / repeal · applicability · compliance · liability</text>
+<text x="1056" y="480" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="400" text-anchor="end">no statute database</text>
+<rect x="44" y="488" width="1012" height="144" rx="18" fill="#1b2231" stroke="#2e374b" stroke-width="1.4" filter="url(#soft)"/>
+<text x="64" y="510" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12" xml:space="preserve" font-weight="700">03</text>
+<text x="90" y="510" fill="#8496f5" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="12.5" xml:space="preserve" font-weight="700" letter-spacing="1.2">REPORT</text>
+<text x="158" y="510" fill="#737b8d" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">buildView</text>
+<text x="1036" y="510" fill="#f0f3f9" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11.5" xml:space="preserve" font-weight="700" text-anchor="end">error 0 · warn 0 · info 1 · issueCount 1 · skippedCount 1</text>
+<rect x="64" y="520" width="72.0" height="20.5" rx="10.25" fill="#242d42" stroke="none" stroke-width="1"/><text x="100.0" y="534.16" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11.5" xml:space="preserve" font-weight="700" text-anchor="middle">issues[]</text>
+<text x="144.0" y="536" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11.5" xml:space="preserve" font-weight="700">1</text>
+<rect x="64" y="540" width="612" height="58" rx="12" fill="#202839" stroke="#2e374b" stroke-width="1.2"/>
+<text x="78" y="558" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700">LC-001</text>
+<text x="140" y="558" fill="#a8b1c4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11.5" xml:space="preserve" font-weight="400">row 1 · lawName</text>
+<text x="78" y="576" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="400">found</text>
+<text x="122" y="576" fill="#f0f3f9" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400">lawName ∅ · articleNo ∅</text>
+<text x="78" y="592" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="400">expected</text>
+<text x="138" y="592" fill="#a8b1c4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400">at least one of the two</text>
+<rect x="716" y="520" width="79.0" height="20.5" rx="10.25" fill="#242d42" stroke="none" stroke-width="1"/><text x="755.5" y="534.16" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11.5" xml:space="preserve" font-weight="700" text-anchor="middle">skipped[]</text>
+<text x="803.0" y="536" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11.5" xml:space="preserve" font-weight="700">1</text>
+<rect x="716" y="540" width="200" height="58" rx="12" fill="#202839" stroke="#8496f5" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="730" y="558" fill="#8496f5" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12.5" xml:space="preserve" font-weight="700">LC-004</text>
+<text x="790" y="558" fill="#8496f5" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="700">skipped</text>
+<text x="730" y="576" fill="#a8b1c4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" xml:space="preserve" font-weight="400">values []</text>
+<text x="730" y="592" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" xml:space="preserve" font-weight="400">enum · not configured</text>
+<text x="64" y="618" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400">ran clean: LC-002 · LC-003 · LC-005 · LC-006 · LC-007 · LC-008 → neither list</text>
+<text x="1036" y="618" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400" text-anchor="end">markdown + reportJson · wording guard + disclaimer</text>
+<text x="44" y="650" fill="#a8b1c4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400">differences only · no verdict · the original is never modified</text>
+<text x="1056" y="650" fill="#737b8d" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" xml:space="preserve" font-weight="400" text-anchor="end">sample LC-001-unsafe.json · 8 rules · 7 fields</text>
+</svg>
