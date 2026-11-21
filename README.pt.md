@@ -43,6 +43,11 @@ O `dsh-lawcite-adapter` lê um inventário de citações —o cabeçalho do docu
   <img src="docs/assets/dsh-lawcite-adapter-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-lawcite-adapter: o cabeçalho e os sete campos de uma linha de citações que as regras leem são dispostos como colunas; cada regra aparece sob os campos que lê —LC-001 presenceAny (lawName e articleNo), LC-002 pattern, LC-003 presence e LC-008 containsAny (quotedText), LC-004 enum (effectiveStatus), LC-005 presenceAny (usage e purpose), LC-006 headerPresence (cabeçalho), LC-007 unique (citationNo)—. Na execução real do exemplo LC-001-unsafe.json, LC-001 produz um achado (linha 1, lawName e articleNo vazios), LC-004 não é executada porque values está sem configuração e entra em skipped, e as outras seis regras não produzem diferenças e não entram em nenhuma lista. O relatório traz error 0 / warn 0 / info 1, issueCount 1 e skippedCount 1; uma faixa separada mantém visível o limite: existência da norma, vigência, alteração ou revogação, aplicabilidade, conformidade e responsabilidade não são verificadas. Apenas diferenças, sem veredito, o original nunca é modificado.">
 </picture>
 
+![dsh-lawcite-adapter: execução real de terminal](docs/assets/dsh-lawcite-adapter-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
+
 ## Instalação em três passos
 
 1. **Instalar**:

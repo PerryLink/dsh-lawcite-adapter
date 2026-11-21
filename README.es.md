@@ -43,6 +43,11 @@ dsh plugin --profile <name> add dsh-lawcite-adapter
   <img src="docs/assets/dsh-lawcite-adapter-flow-v5-light.svg" width="100%" alt="Estructura de dsh-lawcite-adapter: la cabecera y los siete campos de una fila de citas que leen las reglas se disponen como columnas; cada regla aparece bajo los campos que lee —LC-001 presenceAny (lawName y articleNo), LC-002 pattern, LC-003 presence y LC-008 containsAny (quotedText), LC-004 enum (effectiveStatus), LC-005 presenceAny (usage y purpose), LC-006 headerPresence (cabecera), LC-007 unique (citationNo)—. En la ejecución real del ejemplo LC-001-unsafe.json, LC-001 produce un hallazgo (fila 1, lawName y articleNo vacíos), LC-004 no se ejecuta porque values está sin configurar y se registra en skipped, y las otras seis reglas no producen diferencias y no entran en ninguna lista. El informe lleva error 0 / warn 0 / info 1, issueCount 1 y skippedCount 1; una franja aparte mantiene visible el límite: existencia de la norma, vigencia, modificación o derogación, aplicabilidad, cumplimiento y responsabilidad no se comprueban. Solo diferencias, sin veredicto, el original nunca se modifica.">
 </picture>
 
+![dsh-lawcite-adapter: ejecución real de terminal](docs/assets/dsh-lawcite-adapter-demo.gif)
+
+*Repetición animada de una ejecución real registrada en este repositorio.*
+
+
 ## Instalación en tres pasos
 
 1. **Instalar**:

@@ -43,6 +43,11 @@ dsh plugin --profile <name> add dsh-lawcite-adapter
   <img src="docs/assets/dsh-lawcite-adapter-flow-v5-light.svg" width="100%" alt="dsh-lawcite-adapter संरचना: दस्तावेज़ हेडर और एक उद्धरण पंक्ति के सात नियम-पठित फ़ील्ड स्तंभों में; हर नियम उन फ़ील्ड के नीचे जिन्हें वह पढ़ता है — LC-001 presenceAny (lawName + articleNo), LC-002 pattern, LC-003 presence और LC-008 containsAny (quotedText), LC-004 enum (effectiveStatus), LC-005 presenceAny (usage + purpose), LC-006 headerPresence (header), LC-007 unique (citationNo)। बंडल किए गए LC-001-unsafe.json नमूने के वास्तविक रन में LC-001 एक अंतर देता है (पंक्ति 1, lawName और articleNo दोनों खाली), LC-004 values सेट न होने के कारण skipped में जाता है, और शेष छह नियम बिना अंतर के चलते हैं और किसी सूची में नहीं आते। रिपोर्ट में error 0 / warn 0 / info 1, issueCount 1, skippedCount 1; अलग पट्टी सीमा दिखाती है: क़ानून का अस्तित्व, प्रभावी होना, संशोधन/निरसन, लागू होना, अनुपालन और दायित्व नहीं जाँचे जाते। केवल अंतर, कोई निर्णय नहीं, मूल कभी नहीं बदलता।">
 </picture>
 
+![dsh-lawcite-adapter का असली टर्मिनल रन](docs/assets/dsh-lawcite-adapter-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें**:
