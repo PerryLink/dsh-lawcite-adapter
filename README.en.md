@@ -7,6 +7,8 @@
 
 # dsh-lawcite-adapter
 
+Current version `0.2.15`.
+
 **Check every citation in a legal document for a law name, an article number, a transcribed quotation, a configured power status and the document's own elements — and get back a list of what is inconsistent, where, and what to fix.**
 
 A citation checker for DeepSeek Harness, built for lawyers, legal counsel and document drafters: the rule pack cites its basis for every check, reports only literal differences against those elements, never decides compliance, never assigns liability, never touches your original.
